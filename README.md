@@ -1,5 +1,8 @@
 # The Hive Shop (Server)
 
+- Android app version [here](https://github.com/doctor-blue/the-hive-shop)
+- Flutter app version [here](https://github.com/doctor-blue/the-hive-shop-flutter)
+- React Native version: comming soon.
 
 ## Environment
 - Python 3
