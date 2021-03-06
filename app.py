@@ -1,6 +1,7 @@
 import concurrent.futures
 import json
 import socket
+import re
 
 import web
 from error_handler import ErrorHandler
@@ -91,24 +92,40 @@ class Product:
         pass
 
     def GET(self):
+        query = web.ctx.query
+        params = [int(s) for s in re.findall(r'\b\d+\b', query)]
+        page = 1
+        per_page = len(products)
+
+        if len(params) > 0:
+            page = params[0]
+            per_page = params[1]
+
+        end_position = page*per_page
+        start_position = end_position - per_page
+
+        if(end_position > len(products)):
+            end_position -= (end_position - len(products))
         try:
             products_json = []
-            for product in products:
+            for product in products[start_position:end_position]:
                 products_json.append(product.to_json())
             return res_handler.get_with_results(products_json)
         except Exception as err:
             return err_handler.handle_server_error(err)
 
+
 class CartSearch:
     def __init__(self):
-            pass
+        pass
 
-    def GET(self,email):
+    def GET(self, email):
         try:
             cart_json = get_cart_json_by_email(email)
             return res_handler.get_with_results(cart_json)
         except Exception as err:
             return err_handler.handle_server_error(err)
+
 
 class Cart:
     def __init__(self):
