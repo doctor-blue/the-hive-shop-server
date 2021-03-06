@@ -37,6 +37,11 @@
     ...
 ]
 ```
+#### Note:
+```
+If you want to get products by page and item per page you can change api like this: http://your_ip_address/products/page&page_size.
+Example :  http://0.0.0.0:8080/products/1&20.
+```
 
 
 ## For naughty clowns
